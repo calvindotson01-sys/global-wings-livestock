@@ -1,0 +1,3 @@
+document.getElementById('year').textContent=new Date().getFullYear();
+const form=document.getElementById('enquiry-form');
+form.addEventListener('submit',e=>{e.preventDefault();const d=new FormData(form);const subject=encodeURIComponent('Website enquiry - '+d.get('interest'));const body=encodeURIComponent('Name: '+d.get('name')+'\nEmail: '+d.get('email')+'\nCountry: '+d.get('country')+'\nState / Province: '+d.get('region')+'\nInterest: '+d.get('interest')+'\n\nMessage: '+(d.get('message')||'No additional message'));document.getElementById('form-status').textContent='Your email app will open with the enquiry prepared. Send the email to complete your enquiry.';window.location.href='mailto:globallivestock46@gmail.com?subject='+subject+'&body='+body;});

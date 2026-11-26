@@ -1,0 +1,12 @@
+name = "global-wings-livestock"
+main = "worker.js"
+compatibility_date = "2026-11-26"
+
+[assets]
+directory = "."
+binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "Global Wings Reviews"
+database_id = "5d927297-1983-42c3-96e6-e6815644cb16"

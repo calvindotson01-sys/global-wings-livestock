@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://global-wings-livestock.globalwingsandlivestock.workers.dev/sitemap.xml
