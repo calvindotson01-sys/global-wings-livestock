@@ -1,0 +1,30 @@
+
+name: Deploy Global Wings & Livestock
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository files
+        uses: actions/checkout@v4
+
+      - name: Extract website package
+        run: |
+          unzip -q global_wings_livestock_github_ready.zip -d app
+          cd app
+          mkdir public
+          mv index.html animals.html reviews-contact.html admin.html styles.css script.js reviews.js admin.js robots.txt sitemap.xml public/
+          mv assets public/
+          sed -i 's/directory = "."/directory = ".\/public"/' wrangler.toml
+
+      - name: Deploy to Cloudflare
+        run: npx wrangler@4 deploy --config app/wrangler.toml
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
