@@ -19,7 +19,9 @@ jobs:
           mkdir -p public
           cp index.html animals.html reviews-contact.html admin.html styles.css script.js reviews.js admin.js robots.txt sitemap.xml public/
           cp -r assets public/assets
-
+          echo "----- WORKER.JS CONTENT -----"
+          nl -ba worker.js
+          node --check worker.js
       - name: Deploy to Cloudflare
         run: npx wrangler@4 deploy --config wrangler.toml
         env:
