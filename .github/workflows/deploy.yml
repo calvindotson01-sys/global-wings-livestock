@@ -17,9 +17,8 @@ jobs:
         run: |
           rm -rf public
           mkdir -p public
-          cp index.html animals.html reviews-contact.html admin.html styles.css script.js reviews.js admin.js robots.txt sitemap.xml public/
+          cp index.html animals.html reviews-contact.html admin.html styles.css scripts.js reviews.js admin.js robots.txt sitemap.xml public/
           cp -r assets public/assets
-          sed -i 's/directory = "."/directory = ".\/public"/' wrangler.toml
 
       - name: Deploy to Cloudflare
         run: npx wrangler@4 deploy --config wrangler.toml
