@@ -18,7 +18,7 @@ if(req.method==='GET'&&u.pathname==='/api/admin/reviews'){const a=await env.DB.p
 if(req.method==='POST'&&u.pathname==='/api/admin/review-status'){const d=await body(req);if(!Number.isInteger(Number(d?.id))||!['approved','rejected'].includes(d?.status))return json({error:'Invalid review action.'},400);await env.DB.prepare('UPDATE reviews SET status=? WHERE id=?').bind(d.status,Number(d.id)).run();return json({ok:true});}
 if(req.method==='POST'&&u.pathname==='/api/admin/delete-review'){const d=await body(req);const id=Number(d?.id);if(!Number.isInteger(id)||id<1)return json({error:'Invalid review.'},400);const result=await env.DB.prepare('DELETE FROM reviews WHERE id=?').bind(id).run();return json({ok:true,deleted:result.meta?.changes||0});}
 if(req.method==='POST'&&u.pathname==='/api/admin/reply'){const d=await body(req);const reply=String(d?.reply||'').trim();if(!Number.isInteger(Number(d?.id))||reply.length>1500)return json({error:'Please enter a reply of up to 1,500 characters.'},400);await env.DB.prepare("UPDATE reviews SET reply=?,replied_at=datetime('now') WHERE id=? AND status='approved'").bind(reply||null,Number(d.id)).run();return json({ok:true});}
-if(req.method==='POST'&&u.pathname==='/api/admin/logout')return json({ok:true},200,{'Set-Cookie':`${COOKIE}=; HttpOnly; Secure; SameSite=Strict; Path=/api/admin; Max-Age=0'});
+if(req.method==='POST'&&u.pathname==='/api/admin/logout')return json({ok:true},200,{'Set-Cookie':`${COOKIE}=; HttpOnly; Secure; SameSite=Strict; Path=/api/admin; Max-Age=0`});
 return json({error:'Not found.'},404);}
 return json({error:'Not found.'},404);}
 return env.ASSETS.fetch(req);}};
